@@ -16,15 +16,20 @@
     html,body{height:100%;margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
     body{
       background:linear-gradient(135deg,var(--pink-1) 0%, #ffe3f2 40%, #fff 100%);
-      display:flex;align-items:center;justify-content:center;padding:32px;
+      display:flex;
+      align-items:flex-start; /* keep header visible instead of vertically centering (prevents cropping) */
+      justify-content:center;
+      padding:32px;
+      min-height:100vh;
     }
 
-    .stage{position:relative;width:100%;max-width:920px;margin:auto;}
+    .stage{position:relative;width:100%;max-width:1200px;margin:auto;display:flex;gap:28px;align-items:flex-start;}
     .hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
     .card{
-      background:var(--card);border-radius:20px;padding:36px;box-shadow:0 8px 30px rgba(203,56,133,0.12);
-      display:flex;gap:28px;align-items:center;
+      background:var(--card);border-radius:20px;padding:24px;box-shadow:0 8px 30px rgba(203,56,133,0.12);
+      display:flex;gap:18px;align-items:flex-start;flex:0 0 320px;
       transform:translateY(0);transition:transform .35s ease;
+      position:sticky;top:20px;height:max-content;
     }
     @media (max-width:720px){ .card{flex-direction:column;text-align:center;padding:28px} }
 
@@ -72,12 +77,12 @@
 
     <section class="card" role="article" aria-labelledby="title" style="z-index:2">
       <div class="photo" aria-hidden="false">
-        <!-- Replace IMAGE_URL below with a direct link to her photo, or keep placeholder -->
-        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop&crop=faces" alt="Portrait">
+        <!-- Profile image (placed in the same folder) -->
+        <img src="profile image.jpg" alt="Profile image">
       </div>
 
       <div class="content">
-        <h1 id="title">Happy 20th Birthday, Sofia!</h1>
+        <h1 id="title">Happy 20th Birthday, Mariam!</h1>
         <div class="sub">Twenty, gorgeous, confident — loved beyond words.</div>
 
         <p>To the one who makes late-night tea talks feel like home, who joins the 7 AM walks and morning gym with a smile — we celebrate your strength, laughter, and everything that makes you beautifully you.</p>
@@ -103,7 +108,7 @@
   <!-- Album UI -->
   <style>
     /* Album styles */
-    .album-wrap{max-width:920px;margin:28px auto 60px;padding:20px;background:linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.5));border-radius:16px;box-shadow:0 6px 18px rgba(150,50,90,0.06)}
+  .album-wrap{flex:1;max-width:1000px;margin:8px 0 60px 0;padding:20px;background:linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.5));border-radius:16px;box-shadow:0 6px 18px rgba(150,50,90,0.06)}
     .album-header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
     .uploader{display:flex;gap:8px;align-items:center}
     .dropzone{padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,#fff0f6,#fff);border:2px dashed rgba(255,95,162,0.14);cursor:pointer;color:#9b2e52}
