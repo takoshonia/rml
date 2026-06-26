@@ -25,13 +25,23 @@
 
     .stage{position:relative;width:100%;max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:12px;align-items:center;padding-top:24px;}
     .hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+    /* Header card: centered at top, fixed max width so posts appear below */
     .card{
-      background:var(--card);border-radius:20px;padding:18px 28px;box-shadow:0 8px 30px rgba(203,56,133,0.12);
-      display:flex;gap:18px;align-items:center;width:100%;max-width:1100px;
-      transform:translateY(0);transition:transform .35s ease;
-      margin:0 auto;
-      flex-direction:column; /* stack profile text on top */
+      background:var(--card);
+      border-radius:20px;
+      padding:20px 28px;
+      box-shadow:0 8px 30px rgba(203,56,133,0.12);
+      display:flex;
+      gap:18px;
+      align-items:center;
+      width:100%;
+      max-width:920px; /* constrain header width */
+      transform:translateY(0);
+      transition:transform .35s ease;
+      margin:12px auto;
+      flex-direction:column;
       text-align:center;
+      position:relative;
     }
     @media (max-width:720px){ .card{flex-direction:column;text-align:center;padding:28px} }
 
@@ -113,7 +123,8 @@
   <!-- Album UI -->
   <style>
     /* Album styles */
-  .album-wrap{flex:1;max-width:1200px;margin:16px auto;padding:24px 12px;background:linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.5));border-radius:16px;box-shadow:0 6px 18px rgba(150,50,90,0.06)}
+  /* Album sits below the header and is centered with the same max width */
+  .album-wrap{flex:1;max-width:920px;margin:8px auto 48px;padding:18px 12px;background:linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.5));border-radius:16px;box-shadow:0 6px 18px rgba(150,50,90,0.06)}
     .album-header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
     .uploader{display:flex;gap:8px;align-items:center}
     .dropzone{padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,#fff0f6,#fff);border:2px dashed rgba(255,95,162,0.14);cursor:pointer;color:#9b2e52}
