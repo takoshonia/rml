@@ -3,159 +3,267 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Happy 20th Birthday — For Her</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <title>Happy 20th Birthday, Mariam!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      --pink-1:#fff0f6;
-      --pink-2:#ffb6d5;
-      --accent:#ff5fa2;
-      --card:#ffffffee;
-      --muted:#8b5a70;
+      --pink-1:#fff5f9;
+      --pink-2:#ffc8dd;
+      --pink-3:#ff8fb8;
+      --accent:#e84d8a;
+      --card:#ffffff;
+      --text:#5c1a35;
+      --muted:#9a5a72;
+      --shadow:0 12px 40px rgba(180,50,100,0.10);
+      --max:720px;
     }
-    html,body{height:100%;margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
-      background:linear-gradient(135deg,var(--pink-1) 0%, #ffe3f2 40%, #fff 100%);
-      display:flex;
-      align-items:flex-start;
-      justify-content:center;
-      padding:0; /* remove outer margins per request */
-      overflow-x: hidden; /* prevent wide post rows from shifting header left */
+      margin:0;
+      font-family:'Outfit',system-ui,sans-serif;
+      background:linear-gradient(165deg,#fff0f6 0%,#ffe8f2 35%,#fffafc 70%,#fff 100%);
+      color:var(--text);
       min-height:100vh;
+      overflow-x:hidden;
     }
 
-    .stage{position:relative;width:100%;max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:12px;align-items:center;padding-top:24px;}
-    .hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
-    /* Header card: centered at top, fixed max width so posts appear below */
-    .card{
-      background:var(--card);
-      border-radius:20px;
-      padding:20px 28px;
-      box-shadow:0 8px 30px rgba(203,56,133,0.12);
-      display:flex;
-      gap:18px;
-      align-items:center;
+    /* single column page */
+    .page{
       width:100%;
-      max-width:920px; /* constrain header width */
-      transform:translateY(0);
-      transition:transform .35s ease;
-      margin:12px auto;
-      flex-direction:column;
-      text-align:center;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:32px 20px 64px;
       position:relative;
-      z-index:3;
     }
-    @media (max-width:720px){ .card{flex-direction:column;text-align:center;padding:28px} }
 
-    .photo{
-      width:160px;height:160px;border-radius:50%;background:linear-gradient(180deg,var(--pink-2),#ffd7ea);
-      box-shadow:0 8px 20px rgba(255,95,162,0.18);overflow:hidden;border:6px solid rgba(255,255,255,0.6);
-      display:flex;align-items:center;justify-content:center;flex:0 0 auto;margin-bottom:12px;
-    }
-    .photo img{width:100%;height:100%;object-fit:cover;display:block}
-
-    .content{flex:1;min-width:0;}
-    h1{margin:0 0 8px 0;font-size:2.2rem;color:#6f1940;letter-spacing:-0.5px}
-    .card .content{display:block}
-    .card h1, .card .sub, .card p{margin-left:0;margin-right:0}
-    .card .sub, .card p{max-width:820px;margin:0 auto}
-    .sub{color:var(--muted);margin:0 0 16px;font-weight:500}
-    p{margin:0 0 14px;color:#6b4152;line-height:1.45}
-
-    .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-    .badge{background:linear-gradient(90deg,rgba(255,95,162,0.12),rgba(255,140,190,0.08));color:#9b2e52;padding:6px 10px;border-radius:999px;font-weight:600;font-size:.9rem}
-
-    .actions{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
-    .btn{background:var(--accent);color:white;padding:10px 16px;border-radius:12px;border:0;cursor:pointer;font-weight:700;box-shadow:0 6px 18px rgba(255,95,162,0.18)}
-    .btn.alt{background:transparent;border:2px solid #ffd1e6;color:#8b4460;font-weight:700}
-    .note{font-size:.9rem;color:#7a4a5f;margin-top:12px}
-
-    /* floating hearts */
-    .heart{
-      position:absolute;width:28px;height:28px;opacity:.9;transform:translateY(0);
-      animation: floatUp linear infinite;
-    }
+    /* decorative */
+    .hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+    canvas.confetti{position:fixed;inset:0;pointer-events:none;z-index:0}
+    .heart{position:absolute;opacity:.7;animation:floatUp linear infinite}
     @keyframes floatUp{
-      0%{transform:translateY(110vh) scale(0.9);opacity:0}
-      10%{opacity:1}
-      100%{transform:translateY(-30vh) scale(1.1);opacity:0}
+      0%{transform:translateY(105vh) scale(.85);opacity:0}
+      8%{opacity:.8}
+      100%{transform:translateY(-20vh) scale(1.05);opacity:0}
     }
 
-    /* Confetti canvas sits above background but behind card */
-    canvas.confetti{position:absolute;inset:0;pointer-events:none;z-index:1}
+    /* ── header card ── */
+    .hero{
+      position:relative;
+      z-index:2;
+      background:var(--card);
+      border-radius:24px;
+      padding:36px 32px 32px;
+      box-shadow:var(--shadow);
+      text-align:center;
+      margin-bottom:36px;
+    }
+    .hero-photo{
+      width:148px;height:148px;
+      margin:0 auto 20px;
+      border-radius:50%;
+      overflow:hidden;
+      border:5px solid #fff;
+      box-shadow:0 8px 28px rgba(232,77,138,0.22);
+      background:linear-gradient(180deg,var(--pink-2),#ffe0ee);
+    }
+    .hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
 
-    footer{margin-top:18px;color:#7a4a5f;font-size:.9rem}
+    .hero h1{
+      margin:0 0 6px;
+      font-family:'Cormorant Garamond',Georgia,serif;
+      font-size:clamp(2rem,6vw,2.6rem);
+      font-weight:600;
+      color:var(--text);
+      letter-spacing:-0.02em;
+      line-height:1.15;
+    }
+    .hero .tagline{
+      font-size:1.05rem;
+      color:var(--muted);
+      font-weight:500;
+      margin:0 0 18px;
+      font-style:italic;
+      font-family:'Cormorant Garamond',Georgia,serif;
+    }
+    .hero .message{
+      font-size:.98rem;
+      line-height:1.65;
+      color:#6b4152;
+      max-width:520px;
+      margin:0 auto 20px;
+      font-weight:300;
+    }
+    .badges{
+      display:flex;flex-wrap:wrap;gap:8px;
+      justify-content:center;
+      margin-bottom:22px;
+    }
+    .badge{
+      background:linear-gradient(135deg,#fff0f6,#ffe8f2);
+      color:#a8325c;
+      padding:7px 14px;
+      border-radius:999px;
+      font-size:.82rem;
+      font-weight:500;
+      border:1px solid rgba(255,143,184,0.25);
+    }
+    .actions{
+      display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
+    }
+    .btn{
+      background:linear-gradient(135deg,var(--accent),#ff6ba8);
+      color:#fff;
+      padding:11px 22px;
+      border-radius:999px;
+      border:0;
+      cursor:pointer;
+      font-family:inherit;
+      font-size:.92rem;
+      font-weight:600;
+      box-shadow:0 6px 20px rgba(232,77,138,0.28);
+      transition:transform .15s,box-shadow .15s;
+    }
+    .btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(232,77,138,0.35)}
+    .btn.alt{
+      background:transparent;
+      color:var(--accent);
+      border:2px solid var(--pink-3);
+      box-shadow:none;
+    }
+    .btn.alt:hover{box-shadow:0 4px 16px rgba(232,77,138,0.12)}
+    .hero footer{
+      margin-top:22px;
+      font-size:.82rem;
+      color:var(--muted);
+      font-weight:300;
+    }
+
+    /* ── album ── */
+    .album{position:relative;z-index:2}
+    .posts{display:flex;flex-direction:column;gap:32px}
+
+    .post{
+      background:rgba(255,255,255,0.75);
+      backdrop-filter:blur(8px);
+      border-radius:20px;
+      padding:16px;
+      box-shadow:0 4px 24px rgba(180,50,100,0.07);
+    }
+    .post-row{
+      display:flex;
+      gap:14px;
+      overflow-x:auto;
+      padding:4px 2px 8px;
+      scroll-behavior:smooth;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:thin;
+      scrollbar-color:var(--pink-3) transparent;
+    }
+    .post-row::-webkit-scrollbar{height:5px}
+    .post-row::-webkit-scrollbar-thumb{background:var(--pink-3);border-radius:99px}
+
+    .photo-card{
+      flex:0 0 auto;
+      background:var(--pink-1);
+      border-radius:14px;
+      padding:6px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:transform .2s,box-shadow .2s;
+      cursor:pointer;
+    }
+    .photo-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 10px 28px rgba(180,50,100,0.14);
+    }
+    .photo-card img{
+      display:block;
+      max-height:400px;
+      max-width:320px;
+      width:auto;height:auto;
+      object-fit:contain;
+      border-radius:10px;
+    }
+
+    /* static caption text you edit in HTML */
+    .post-note{
+      margin:14px 4px 4px;
+      font-size:.95rem;
+      line-height:1.6;
+      color:#6b4152;
+      font-weight:300;
+      text-align:center;
+      font-family:'Cormorant Garamond',Georgia,serif;
+      font-size:1.1rem;
+    }
+
+    /* lightbox */
+    .lightbox{
+      position:fixed;inset:0;
+      background:rgba(20,5,12,0.82);
+      display:none;
+      align-items:center;justify-content:center;
+      z-index:9999;padding:20px;
+      cursor:zoom-out;
+    }
+    .lightbox.open{display:flex}
+    .lightbox img{
+      max-width:96%;max-height:92vh;
+      object-fit:contain;
+      border-radius:12px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    @media (max-width:480px){
+      .page{padding:20px 14px 48px}
+      .hero{padding:28px 20px 24px}
+      .photo-card img{max-height:280px;max-width:240px}
+    }
   </style>
 </head>
 <body>
-  <div class="stage" role="main" aria-label="Birthday card">
-    <canvas class="confetti" aria-hidden="true"></canvas>
-    <div class="hearts" aria-hidden="true"></div>
 
-    <section class="card" role="article" aria-labelledby="title" style="z-index:2">
-      <div class="photo" aria-hidden="false">
-        <!-- Profile image (placed in the same folder) -->
-        <img src="profile image.jpg" alt="Profile image">
+  <canvas class="confetti" aria-hidden="true"></canvas>
+  <div class="hearts" aria-hidden="true"></div>
+
+  <div class="page">
+
+    <!-- ── HEADER (top, centered) ── -->
+    <header class="hero" aria-labelledby="title">
+      <div class="hero-photo">
+        <img src="profile image.jpg" alt="Mariam">
       </div>
-
-      <div class="content">
-        <h1 id="title">Happy 20th Birthday, Mariam!</h1>
-        <div class="sub">Twenty, gorgeous, confident — loved beyond words.</div>
-
-        <p>To the one who makes late-night tea talks feel like home, who joins the 7 AM walks and morning gym with a smile — we celebrate your strength, laughter, and everything that makes you beautifully you.</p>
-
-        <div class="badges" aria-hidden="true">
-          <div class="badge">Laughter & late-night talks</div>
-          <div class="badge">7 AM walks</div>
-          <div class="badge">Confident & fierce</div>
-          <div class="badge">Lovely, kind, bold</div>
-        </div>
-
-        <div class="actions">
-          <button class="btn" id="confettiBtn">Celebrate 🎉</button>
-          <button class="btn alt" id="downloadBtn">Save this card</button>
-        </div>
-
-        <div class="note">Tip: Replace the photo, name, and text for a personal touch.</div>
-        <footer>Made with love — friends who appreciate your spirit.</footer>
+      <h1 id="title">Happy 20th Birthday, Mariam!</h1>
+      <p class="tagline">Twenty, gorgeous, confident — loved beyond words.</p>
+      <p class="message">To the one who makes late-night tea talks feel like home, who joins the 7 AM walks and morning gym with a smile — we celebrate your strength, laughter, and everything that makes you beautifully you.</p>
+      <div class="badges">
+        <span class="badge">Laughter & late-night talks</span>
+        <span class="badge">7 AM walks</span>
+        <span class="badge">Confident & fierce</span>
+        <span class="badge">Lovely, kind, bold</span>
       </div>
-    </section>
-  </div>
+      <div class="actions">
+        <button class="btn" id="confettiBtn">Celebrate 🎉</button>
+        <button class="btn alt" id="downloadBtn">Save this card</button>
+      </div>
+      <footer>Made with love — friends who appreciate your spirit.</footer>
+    </header>
 
-  <!-- Album UI -->
-  <style>
-    /* Album styles */
-  /* Album sits below the header and is centered with the same max width */
-  .album-wrap{flex:1;max-width:920px;margin:8px auto 48px;padding:18px 12px;background:linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.5));border-radius:16px;box-shadow:0 6px 18px rgba(150,50,90,0.06)}
-    .album-header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
-    .uploader{display:flex;gap:8px;align-items:center}
-    .dropzone{padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,#fff0f6,#fff);border:2px dashed rgba(255,95,162,0.14);cursor:pointer;color:#9b2e52}
-    .posts{display:flex;flex-direction:column;gap:22px;margin-top:12px}
-    .post{background:rgba(255,245,251,0.8);border-radius:12px;padding:12px}
-    .post-title{font-weight:700;color:#7a2344;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    /* Each post is centered and constrained so rows of many photos don't stretch the full page */
-    .post{width:100%;max-width:920px;margin:20px auto;padding:12px;border-radius:12px}
-    .post-row{display:flex;gap:18px;justify-content:flex-start;padding:12px 6px;align-items:flex-start;overflow-x:auto;white-space:nowrap;scroll-behavior:smooth}
-    .photo-card{flex:0 0 auto;background:var(--pink-1);padding:8px;border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(200,60,120,0.06);transition:transform .18s ease,box-shadow .18s ease}
-    .photo-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(200,60,120,0.12)}
-    .photo-card img{display:block;max-height:520px;max-width:420px;height:auto;width:auto;object-fit:contain;border-radius:6px}
-    .scroll-btn{background:transparent;border:0;font-size:20px;color:#c04a76;cursor:pointer;padding:6px 10px;border-radius:8px}
-    .caption{margin-top:8px;font-size:.95rem;color:#6b4152}
-    .lightbox{position:fixed;inset:0;background:rgba(15,6,10,0.75);display:flex;align-items:center;justify-content:center;z-index:9999;padding:24px;display:none}
-    .lightbox img{max-width:95%;max-height:95%;object-fit:contain;border-radius:8px}
-    .caption-input{border:1px solid #ffd7ea;padding:8px;border-radius:8px;background:white;color:#6b4152}
-    @media (max-width:720px){
-      .photo-card img{max-height:260px}
-    }
-  </style>
+    <!-- ── ALBUM (below header) ── -->
+    <main class="album" id="album">
+      <div class="posts" id="postsContainer" aria-live="polite">
 
-  <div class="album-wrap" id="album">
-    <!-- Album header removed per request (images and captions will be edited directly in HTML/manifest) -->
+        <!-- Add your static text under each post like this: -->
+        <!--
+        <section id="post-top" class="post">
+          <p class="post-note">Your caption for the top photos goes here.</p>
+        </section>
+        -->
 
-    <div class="posts" id="postsContainer" aria-live="polite">
-      <div style="color:#7a4a5f">No images yet. Click the drop area or paste photos to start the album. The gallery groups images by filename prefixes (e.g. top1.jpg, top2.jpg).</div>
-    </div>
-  </div>
+      </div>
+    </main>
 
   </div>
 
@@ -164,280 +272,189 @@
   </div>
 
   <script>
-    // ---------- Small confetti + hearts (preserved) ----------
+    // ── confetti + hearts ──
     (function(){
-      // debug removed
       const canvas = document.querySelector('canvas.confetti');
       const dpr = Math.max(1, window.devicePixelRatio || 1);
       const ctx = canvas.getContext('2d');
-      let W, H, particles = [];
+      let particles = [];
 
       function resize(){
-        W = canvas.width = innerWidth * dpr;
-        H = canvas.height = innerHeight * dpr;
+        canvas.width = innerWidth * dpr;
+        canvas.height = innerHeight * dpr;
         canvas.style.width = innerWidth + 'px';
         canvas.style.height = innerHeight + 'px';
-        ctx.scale(dpr, dpr);
+        ctx.setTransform(dpr,0,0,dpr,0,0);
       }
       window.addEventListener('resize', resize);
       resize();
 
-      function rand(min,max){ return Math.random()*(max-min)+min }
+      function rand(a,b){ return Math.random()*(b-a)+a }
 
       function makeConfetti(x){
-        const colors = ['#ff6aa9','#ffd1ea','#ff9acb','#ff5fa2','#ffb3d9'];
-        for(let i=0;i<80;i++){
-          particles.push({
-            x: x + rand(-20,20),
-            y: innerHeight - 80,
-            vx: rand(-6,6),
-            vy: rand(-12,-4),
-            size: rand(6,12),
-            rot: rand(0,360),
-            color: colors[Math.floor(rand(0,colors.length))],
-            life: rand(60,140)
-          });
+        const colors = ['#ff6aa9','#ffd1ea','#ff9acb','#e84d8a','#ffb3d9'];
+        for(let i=0;i<70;i++){
+          particles.push({x:x+rand(-30,30),y:innerHeight-60,vx:rand(-5,5),vy:rand(-14,-5),size:rand(5,11),rot:rand(0,360),color:colors[~~rand(0,colors.length)],life:rand(50,130)});
         }
       }
 
-      function update(){
+      function tick(){
         ctx.clearRect(0,0,innerWidth,innerHeight);
         for(let i=particles.length-1;i>=0;i--){
-          const p = particles[i];
-          p.x += p.vx; p.y += p.vy; p.vy += 0.4; p.rot += 6;
-          p.life--;
-          ctx.save();
-          ctx.translate(p.x, p.y);
-          ctx.rotate(p.rot * Math.PI/180);
-          ctx.fillStyle = p.color;
-          ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*0.6);
+          const p=particles[i];
+          p.x+=p.vx;p.y+=p.vy;p.vy+=0.35;p.rot+=5;p.life--;
+          ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
+          ctx.fillStyle=p.color;ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size*.65);
           ctx.restore();
-          if(p.life<=0 || p.y > innerHeight + 50) particles.splice(i,1);
+          if(p.life<=0||p.y>innerHeight+40) particles.splice(i,1);
         }
-        requestAnimationFrame(update);
+        requestAnimationFrame(tick);
       }
-      update();
+      tick();
 
-      // hook to button
-      document.getElementById('confettiBtn').addEventListener('click', function(e){
-        const rect = e.target.getBoundingClientRect();
-        makeConfetti(rect.left + rect.width/2);
+      document.getElementById('confettiBtn').addEventListener('click',e=>{
+        const r=e.target.getBoundingClientRect();
+        makeConfetti(r.left+r.width/2);
       });
+      setTimeout(()=>makeConfetti(innerWidth/2),700);
 
-      // optional: auto-pop on page load
-      setTimeout(()=>{ makeConfetti(innerWidth/2); }, 600);
-
-      // ---------- floating hearts generator ----------
-      const heartsWrap = document.querySelector('.hearts');
+      const heartsWrap=document.querySelector('.hearts');
       function spawnHeart(){
-        const heart = document.createElement('div');
-        heart.className = 'heart';
-        const size = Math.round(rand(18,40));
-        heart.style.width = size+'px'; heart.style.height = size+'px';
-        heart.style.left = rand(5,95)+'%';
-        heart.style.animationDuration = rand(6,12)+'s';
-        heart.style.opacity = rand(0.6,1);
-        heart.innerHTML = `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 21s-7-4.35-9.5-7.2C-1.2 9.2 4 3 8.6 6.7 10.4 8 12 9.4 12 9.4s1.6-1.4 3.4-2.7C20 3 25.2 9.2 21.5 13.8 19 16.65 12 21 12 21z" fill="#ff5fa2" /></svg>`;
-        heartsWrap.appendChild(heart);
-        setTimeout(()=>heart.remove(), 14000);
+        const el=document.createElement('div');
+        el.className='heart';
+        const s=~~rand(14,34);
+        el.style.cssText=`width:${s}px;height:${s}px;left:${rand(3,97)}%;animation-duration:${rand(7,13)}s;opacity:${rand(.5,.9)}`;
+        el.innerHTML=`<svg viewBox="0 0 24 24" width="${s}" height="${s}"><path d="M12 21s-7-4.35-9.5-7.2C-1.2 9.2 4 3 8.6 6.7 10.4 8 12 9.4 12 9.4s1.6-1.4 3.4-2.7C20 3 25.2 9.2 21.5 13.8 19 16.65 12 21 12 21z" fill="#e84d8a"/></svg>`;
+        heartsWrap.appendChild(el);
+        setTimeout(()=>el.remove(),14000);
       }
-      setInterval(spawnHeart, 900);
-      // initial burst
-      for(let i=0;i<6;i++) setTimeout(spawnHeart, i*200);
+      setInterval(spawnHeart,1000);
+      for(let i=0;i<5;i++) setTimeout(spawnHeart,i*250);
     })();
 
-    // ---------- Save PNG of card (preserved) ----------
-    document.getElementById('downloadBtn').addEventListener('click', async function(){
-      const el = document.querySelector('.card');
-      const rect = el.getBoundingClientRect();
-      const scale = 2;
-      const canvas = document.createElement('canvas');
-      canvas.width = rect.width * scale;
-      canvas.height = rect.height * scale;
-      const ctx = canvas.getContext('2d');
-      // simple style snapshot using foreignObject via SVG
-      const data = `
-        <svg xmlns='http://www.w3.org/2000/svg' width='${rect.width}' height='${rect.height}'>
-          <foreignObject width='100%' height='100%'>
-            ${new XMLSerializer().serializeToString(el.cloneNode(true)).replace(/#/g,'%23')}
-          </foreignObject>
-        </svg>
-      `;
-      const svg = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
-      const url = URL.createObjectURL(svg);
-      const img = new Image();
-      img.onload = () => {
-        ctx.drawImage(img,0,0,canvas.width,canvas.height);
-        URL.revokeObjectURL(url);
-        const a = document.createElement('a');
-        a.href = canvas.toDataURL('image/png');
-        a.download = 'birthday-card.png';
-        a.click();
-      };
-      img.src = url;
+    // ── save card PNG ──
+    document.getElementById('downloadBtn').addEventListener('click',async function(){
+      const el=document.querySelector('.hero');
+      const rect=el.getBoundingClientRect();
+      const scale=2;
+      const c=document.createElement('canvas');
+      c.width=rect.width*scale;c.height=rect.height*scale;
+      const ctx=c.getContext('2d');
+      const data=`<svg xmlns='http://www.w3.org/2000/svg' width='${rect.width}' height='${rect.height}'><foreignObject width='100%' height='100%'>${new XMLSerializer().serializeToString(el.cloneNode(true)).replace(/#/g,'%23')}</foreignObject></svg>`;
+      const url=URL.createObjectURL(new Blob([data],{type:'image/svg+xml'}));
+      const img=new Image();
+      img.onload=()=>{ctx.drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);
+        const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='birthday-card.png';a.click();};
+      img.src=url;
     });
 
-    // ---------- Album logic ----------
+    // ── album ──
     (function(){
-      const order = ["top","us","tamchos","qeipi","night","morning","legioni","hellowin","giorgi"];
-      const postsContainer = document.getElementById('postsContainer');
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightboxImg');
+      const ORDER=["top","us","tamchos","qeipi","night","morning","legioni","hellowin","giorgi"];
+      const postsContainer=document.getElementById('postsContainer');
+      const lightbox=document.getElementById('lightbox');
+      const lightboxImg=document.getElementById('lightboxImg');
+      let images=[];
+      let lightboxList=[];
+      let lightboxIdx=0;
 
-      let images = []; // {name,url,file}
-
-      function parseIndex(name, prefix){
-        // Find first run of digits after the prefix (allow spaces or other chars).
-        // If that fails (e.g. filename 'giorg2' for prefix 'giorgi'), fall back to the first number in the name.
-        const re = new RegExp('^' + prefix + '\\D*(\\d+)', 'i');
-        const m = name.match(re);
+      function parseIndex(name,prefix){
+        const m=name.match(new RegExp('^'+prefix+'\\D*(\\d+)','i'));
         if(m) return parseInt(m[1],10);
-        const any = name.match(/(\\d+)/);
-        return any ? parseInt(any[1],10) : 0;
+        const any=name.match(/(\d+)/);
+        return any?parseInt(any[1],10):0;
       }
 
       function groupAndSort(imgs){
-        const groups = {};
-        order.forEach(k=>groups[k]=[]);
-        const others = [];
+        const groups={}; ORDER.forEach(k=>groups[k]=[]);
+        const others=[];
         imgs.forEach(i=>{
-          const base = i.name.replace(/\\.[^.]+$/,''); // remove ext
-          let placed = false;
-          for(const k of order){
-            if(base.toLowerCase().startsWith(k.toLowerCase())){
-              groups[k].push(i);
-              placed=true; break;
-            }
+          const base=i.name.replace(/\.[^.]+$/,'');
+          let placed=false;
+          for(const k of ORDER){
+            if(base.toLowerCase().startsWith(k.toLowerCase())){groups[k].push(i);placed=true;break;}
           }
           if(!placed) others.push(i);
         });
-        // sort each group by number after prefix
-        for(const k of order){
-          groups[k].sort((a,b)=>{
-            const ia = parseIndex(a.name.replace(/\\.[^.]+$/,''),k);
-            const ib = parseIndex(b.name.replace(/\\.[^.]+$/,''),k);
-            return ia - ib;
-          });
+        for(const k of ORDER){
+          groups[k].sort((a,b)=>parseIndex(a.name.replace(/\.[^.]+$/,''),k)-parseIndex(b.name.replace(/\.[^.]+$/,''),k));
         }
         return {groups,others};
       }
 
-      function createImageElement(imgObj){
-        const wrapper = document.createElement('div');
-        wrapper.className = 'photo-card';
-        const img = document.createElement('img');
-        // encode URI to handle spaces/special chars in filenames
-        img.src = encodeURI(imgObj.url);
-        img.alt = imgObj.name;
-        img.addEventListener('click', ()=>openLightbox(imgObj));
-        wrapper.appendChild(img);
-        return wrapper;
-      }
-
-      function openLightbox(imgObj){
-        lightboxImg.src = imgObj.url;
-        lightboxImg.alt = imgObj.name;
-        lightbox.style.display = 'flex';
+      function openLightbox(imgObj,list){
+        lightboxList=list||[imgObj];
+        lightboxIdx=lightboxList.indexOf(imgObj);
+        if(lightboxIdx<0) lightboxIdx=0;
+        lightboxImg.src=encodeURI(lightboxList[lightboxIdx].url);
+        lightbox.classList.add('open');
         lightbox.setAttribute('aria-hidden','false');
       }
-      lightbox.addEventListener('click', ()=>{ lightbox.style.display='none'; lightbox.setAttribute('aria-hidden','true'); });
+      lightbox.addEventListener('click',()=>{lightbox.classList.remove('open');lightbox.setAttribute('aria-hidden','true');});
+      document.addEventListener('keydown',e=>{
+        if(!lightbox.classList.contains('open')) return;
+        if(e.key==='Escape'){lightbox.classList.remove('open');lightbox.setAttribute('aria-hidden','true');}
+        if(e.key==='ArrowRight'&&lightboxList.length>1){lightboxIdx=(lightboxIdx+1)%lightboxList.length;lightboxImg.src=encodeURI(lightboxList[lightboxIdx].url);}
+        if(e.key==='ArrowLeft'&&lightboxList.length>1){lightboxIdx=(lightboxIdx-1+lightboxList.length)%lightboxList.length;lightboxImg.src=encodeURI(lightboxList[lightboxIdx].url);}
+      });
+
+      function createImageElement(imgObj,list){
+        const wrap=document.createElement('div');
+        wrap.className='photo-card';
+        const img=document.createElement('img');
+        img.src=encodeURI(imgObj.url);
+        img.alt=imgObj.name;
+        img.loading='lazy';
+        img.addEventListener('click',()=>openLightbox(imgObj,list));
+        wrap.appendChild(img);
+        return wrap;
+      }
 
       function render(){
-        postsContainer.innerHTML = '';
-        if(images.length===0){
-          postsContainer.innerHTML = '<div style="color:#7a4a5f">No images yet. Click the drop area or paste photos to start the album.</div>';
-          return;
-        }
-        const {groups,others} = groupAndSort(images);
-        for(const k of order){
-          if(groups[k].length===0) continue;
-          // If the author added a static section in HTML with id="post-<prefix>", use it (so they can write static text beneath the images).
-          let post = document.getElementById('post-'+k);
-          if(!post){
-            post = document.createElement('section');
-            post.className = 'post';
-            post.id = 'post-'+k;
-          }
-          // ensure posts appear in the configured order
+        // keep any static post sections already in HTML
+        const staticPosts={};
+        postsContainer.querySelectorAll('section.post[id]').forEach(s=>{staticPosts[s.id]=s;});
+        postsContainer.innerHTML='';
+        if(images.length===0) return;
+
+        const {groups,others}=groupAndSort(images);
+        for(const k of ORDER){
+          if(!groups[k].length) continue;
+          let post=staticPosts['post-'+k];
+          if(!post){post=document.createElement('section');post.className='post';post.id='post-'+k;}
+          const row=document.createElement('div');
+          row.className='post-row';
+          groups[k].forEach(img=>row.appendChild(createImageElement(img,groups[k])));
+          post.insertBefore(row,post.firstChild);
           postsContainer.appendChild(post);
-
-          // find or create the scrolling row (insert at top so static HTML placed in the section remains below)
-          let row = post.querySelector('.post-row');
-          if(!row){
-            row = document.createElement('div');
-            row.className = 'post-row';
-            post.insertBefore(row, post.firstChild || null);
-          } else {
-            // clear existing images in row before re-populating
-            row.innerHTML = '';
-          }
-
-          groups[k].forEach(imgObj=> row.appendChild(createImageElement(imgObj)));
         }
         if(others.length){
-          const post = document.createElement('section');
-          post.className = 'post';
-          const row = document.createElement('div');
-          row.className = 'post-row';
-          others.forEach(imgObj=> row.appendChild(createImageElement(imgObj)));
+          const post=document.createElement('section');
+          post.className='post';
+          const row=document.createElement('div');
+          row.className='post-row';
+          others.forEach(img=>row.appendChild(createImageElement(img,others)));
           post.appendChild(row);
           postsContainer.appendChild(post);
         }
-        // no headers, captions, or save controls (user will edit HTML for descriptive text)
       }
 
-      function escapeHtml(s){ return s.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
+      const EMBEDDED=["giorgi2.jpg","giorgi1.jpg","hellowin1.jpg","hellowin2.jpg","hellowin3.jpg","hellowin4.jpg","legioni1.jpg","legioni2.jpg","morning0.jpg","morning1.jpg","night1.jpg","night3.jpg","qeipi1.jpg","qeipi2.jpg","tamchos 4.jpg","tamchos1 (1).JPG","tamchos1 (2).JPG","tamchos1 (3).JPG","top1.jpg","top2.jpg","top3.jpg","us1.jpg","us2.jpg","us3.jpg"];
 
-      // Upload UI was removed; no dropzone listeners needed.
-      // Upload UI removed; clear button listener removed.
-
-      function handleFiles(fileList){
-        const arr = Array.from(fileList).filter(f=>f.type.startsWith('image/'));
-        if(arr.length===0) return;
-        arr.forEach(f=>{
-          const url = URL.createObjectURL(f);
-          images.push({name:f.name,url, file:f});
+      function applyList(list){
+        images.length=0;
+        list.forEach(fn=>{
+          if(typeof fn!=='string') return;
+          const l=fn.toLowerCase();
+          if(/\.(png|jpe?g|gif|webp|svg)$/.test(l)) images.push({name:fn,url:fn});
         });
-        render();
+        if(images.length) render();
       }
 
-      // Embedded fallback manifest (safe when file:// prevents fetch). Generated from images.json.
-      const EMBEDDED_MANIFEST = ["giorgi2.jpg","giorgi1.jpg","hellowin1.jpg","hellowin2.jpg","hellowin3.jpg","hellowin4.jpg","legioni1.jpg","legioni2.jpg","morning0.jpg","morning1.jpg","night1.jpg","night3.jpg","qeipi1.jpg","qeipi2.jpg","tamchos 4.jpg","tamchos1 (1).JPG","tamchos1 (2).JPG","tamchos1 (3).JPG","top1.jpg","top2.jpg","top3.jpg","us1.jpg","us2.jpg","us3.jpg"];
-
-      // Try to load a local manifest images.json (created from folder) when the page opens.
-      // This allows static hosting: the page will render images present alongside index.html.
-      (function loadManifest(){
-        fetch('images.json').then(r=>{
-          if(!r.ok) throw new Error('no manifest');
-          return r.json();
-        }).then(list=>{
-          applyList(list);
-        }).catch(()=>{
-          // If fetch fails (common when opening the file locally in some browsers), use the embedded manifest
-          applyList(EMBEDDED_MANIFEST);
-        });
-
-        function applyList(list){
-        // push filenames as image entries (relative URLs)
-          try{
-            images.length = 0; // clear existing
-            list.forEach(fn=>{
-              // ignore non-strings
-              if(typeof fn !== 'string') return;
-              const lower = fn.toLowerCase();
-              if(lower.endsWith('.png')||lower.endsWith('.jpg')||lower.endsWith('.jpeg')||lower.endsWith('.gif')||lower.endsWith('.webp')||lower.endsWith('.svg')){
-                images.push({name:fn, url:fn});
-              }
-            });
-            if(images.length) render();
-          }catch(e){
-            console.error('applyList error', e);
-          }
-        }
-      })();
-
-      // If user places images in a folder on the host and wants to prefill, they can create image elements manually or paste URLs.
-      // Keep album state in memory; captions saved in localStorage.
+      fetch('images.json')
+        .then(r=>{if(!r.ok) throw 0;return r.json();})
+        .then(applyList)
+        .catch(()=>applyList(EMBEDDED));
     })();
   </script>
 </body>
