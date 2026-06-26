@@ -107,7 +107,16 @@
       font-size:.82rem;
       font-weight:500;
       border:1px solid rgba(255,143,184,0.25);
+      text-decoration:none;
+      cursor:pointer;
+      transition:transform .15s,box-shadow .15s,background .15s;
     }
+    a.badge:hover{
+      transform:translateY(-2px);
+      box-shadow:0 4px 14px rgba(232,77,138,0.18);
+      background:linear-gradient(135deg,#ffe8f2,#ffd6e8);
+    }
+    .post{scroll-margin-top:24px}
     .actions{
       display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
     }
@@ -125,13 +134,34 @@
       transition:transform .15s,box-shadow .15s;
     }
     .btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(232,77,138,0.35)}
-    .btn.alt{
-      background:transparent;
-      color:var(--accent);
-      border:2px solid var(--pink-3);
-      box-shadow:none;
+    .btn-celebrate{
+      font-size:1.05rem;
+      padding:14px 32px;
+      letter-spacing:.02em;
+      background:linear-gradient(135deg,#d63384,#ff6ba8,#ffb3d9);
+      background-size:200% 200%;
+      animation:shimmer 3s ease infinite;
+      box-shadow:0 8px 32px rgba(232,77,138,0.4),0 0 0 0 rgba(255,107,168,0.5);
     }
-    .btn.alt:hover{box-shadow:0 4px 16px rgba(232,77,138,0.12)}
+    .btn-celebrate:hover{
+      transform:translateY(-3px) scale(1.04);
+      box-shadow:0 14px 40px rgba(232,77,138,0.45);
+    }
+    .btn-celebrate:active{transform:scale(0.97)}
+    @keyframes shimmer{
+      0%,100%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+    }
+    @keyframes celebratePop{
+      0%{transform:scale(1)}
+      40%{transform:scale(1.12)}
+      100%{transform:scale(1)}
+    }
+    .hero.celebrating{animation:heroGlow .6s ease}
+    @keyframes heroGlow{
+      0%,100%{box-shadow:var(--shadow)}
+      50%{box-shadow:0 0 60px rgba(232,77,138,0.35),var(--shadow)}
+    }
     .hero footer{
       margin-top:22px;
       font-size:.82rem;
@@ -236,17 +266,16 @@
         <img src="profile image.jpg" alt="Mariam">
       </div>
       <h1 id="title">Happy 20th Birthday, Mariam!</h1>
-      <p class="tagline">Twenty, gorgeous, confident — loved beyond words.</p>
-      <p class="message">To the one who makes late-night tea talks feel like home, who joins the 7 AM walks and morning gym with a smile — we celebrate your strength, laughter, and everything that makes you beautifully you.</p>
+      <p class="tagline">Twenty years of grace, fire, and a heart that makes every room feel warmer.</p>
+      <p class="message">Late-night tea talks that felt like home. 7 AM walks when the campus was still asleep. Morning gym, shared laughs, hard days, and opinions we argue about with love. You are gorgeous, confident, and unapologetically yourself — and we are so lucky we got to live all of it beside you.</p>
       <div class="badges">
-        <span class="badge">Laughter & late-night talks</span>
-        <span class="badge">7 AM walks</span>
-        <span class="badge">Confident & fierce</span>
-        <span class="badge">Lovely, kind, bold</span>
+        <a class="badge" href="#post-night">Laughter & late-night talks</a>
+        <a class="badge" href="#post-morning">7 AM walks</a>
+        <a class="badge" href="#post-top">Confident & fierce</a>
+        <a class="badge" href="#post-us">Lovely, kind, bold</a>
       </div>
       <div class="actions">
-        <button class="btn" id="confettiBtn">Celebrate 🎉</button>
-        <button class="btn alt" id="downloadBtn">Save this card</button>
+        <button class="btn btn-celebrate" id="confettiBtn">Celebrate 🎉</button>
       </div>
       <footer>Made with love — friends who appreciate your spirit.</footer>
     </header>
@@ -255,12 +284,29 @@
     <main class="album" id="album">
       <div class="posts" id="postsContainer" aria-live="polite">
 
-        <!-- Add your static text under each post like this: -->
-        <!--
-        <section id="post-top" class="post">
-          <p class="post-note">Your caption for the top photos goes here.</p>
+        <section id="post-qeipi" class="post">
+          <p class="post-note">So many nights with drinks in our rooms — and your aunt's liquor? Absolutely fantastic.</p>
         </section>
-        -->
+
+        <section id="post-night" class="post">
+          <p class="post-note">Late-night walks and tea were some of the most peaceful things we shared — the kind that made us feel truly at home with you.</p>
+        </section>
+
+        <section id="post-morning" class="post">
+          <p class="post-note">We tried 7 AM walks too — even just two of them, but they were so memorable and peaceful.</p>
+        </section>
+
+        <section id="post-legioni" class="post">
+          <p class="post-note">We went through obstacles too — but together, we can do anything. ❤️</p>
+        </section>
+
+        <section id="post-hellowin" class="post">
+          <p class="post-note">Girl, you are a diva — and that goes without saying.</p>
+        </section>
+
+        <section id="post-giorgi" class="post">
+          <p class="post-note">We wish you nothing but the best — be happy, fulfilled, and loved. We love you.</p>
+        </section>
 
       </div>
     </main>
@@ -291,33 +337,6 @@
 
       function rand(a,b){ return Math.random()*(b-a)+a }
 
-      function makeConfetti(x){
-        const colors = ['#ff6aa9','#ffd1ea','#ff9acb','#e84d8a','#ffb3d9'];
-        for(let i=0;i<70;i++){
-          particles.push({x:x+rand(-30,30),y:innerHeight-60,vx:rand(-5,5),vy:rand(-14,-5),size:rand(5,11),rot:rand(0,360),color:colors[~~rand(0,colors.length)],life:rand(50,130)});
-        }
-      }
-
-      function tick(){
-        ctx.clearRect(0,0,innerWidth,innerHeight);
-        for(let i=particles.length-1;i>=0;i--){
-          const p=particles[i];
-          p.x+=p.vx;p.y+=p.vy;p.vy+=0.35;p.rot+=5;p.life--;
-          ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
-          ctx.fillStyle=p.color;ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size*.65);
-          ctx.restore();
-          if(p.life<=0||p.y>innerHeight+40) particles.splice(i,1);
-        }
-        requestAnimationFrame(tick);
-      }
-      tick();
-
-      document.getElementById('confettiBtn').addEventListener('click',e=>{
-        const r=e.target.getBoundingClientRect();
-        makeConfetti(r.left+r.width/2);
-      });
-      setTimeout(()=>makeConfetti(innerWidth/2),700);
-
       const heartsWrap=document.querySelector('.hearts');
       function spawnHeart(){
         const el=document.createElement('div');
@@ -328,25 +347,74 @@
         heartsWrap.appendChild(el);
         setTimeout(()=>el.remove(),14000);
       }
+
+      function makeConfetti(x,y,count,spread){
+        const colors = ['#ff6aa9','#ffd1ea','#ff9acb','#e84d8a','#ffb3d9','#fff','#ffc107'];
+        const startY = y ?? innerHeight - 60;
+        for(let i=0;i<(count||70);i++){
+          particles.push({
+            x:(x??innerWidth/2)+rand(-(spread||30),spread||30),
+            y:startY+rand(-20,20),
+            vx:rand(-8,8),
+            vy:rand(-18,-4),
+            size:rand(5,14),
+            rot:rand(0,360),
+            color:colors[~~rand(0,colors.length)],
+            life:rand(80,180),
+            shape:Math.random()>0.3?'rect':'circle'
+          });
+        }
+      }
+
+      function grandCelebrate(btn){
+        const hero=document.querySelector('.hero');
+        hero.classList.add('celebrating');
+        setTimeout(()=>hero.classList.remove('celebrating'),700);
+        btn.style.animation='celebratePop .5s ease';
+        setTimeout(()=>{btn.style.animation='';},500);
+
+        // multi-burst: button, center-top shower, sides
+        const r=btn.getBoundingClientRect();
+        makeConfetti(r.left+r.width/2,r.top+r.height/2,120,40);
+        setTimeout(()=>makeConfetti(innerWidth*0.2,80,80,60),150);
+        setTimeout(()=>makeConfetti(innerWidth*0.5,60,150,120),300);
+        setTimeout(()=>makeConfetti(innerWidth*0.8,80,80,60),450);
+        setTimeout(()=>makeConfetti(innerWidth*0.35,innerHeight*0.3,60,50),600);
+        setTimeout(()=>makeConfetti(innerWidth*0.65,innerHeight*0.3,60,50),750);
+
+        // heart burst
+        for(let i=0;i<12;i++){
+          setTimeout(spawnHeart, i*80);
+        }
+      }
+
+      function tick(){
+        ctx.clearRect(0,0,innerWidth,innerHeight);
+        for(let i=particles.length-1;i>=0;i--){
+          const p=particles[i];
+          p.x+=p.vx;p.y+=p.vy;p.vy+=0.35;p.rot+=5;p.life--;
+          ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
+          ctx.fillStyle=p.color;
+          if(p.shape==='circle'){
+            ctx.beginPath();ctx.arc(0,0,p.size/2,0,Math.PI*2);ctx.fill();
+          } else {
+            ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size*.65);
+          }
+          ctx.restore();
+          if(p.life<=0||p.y>innerHeight+40) particles.splice(i,1);
+        }
+        requestAnimationFrame(tick);
+      }
+      tick();
+
+      document.getElementById('confettiBtn').addEventListener('click',e=>{
+        grandCelebrate(e.currentTarget);
+      });
+      setTimeout(()=>makeConfetti(innerWidth/2,innerHeight*0.4,50,80),700);
+
       setInterval(spawnHeart,1000);
       for(let i=0;i<5;i++) setTimeout(spawnHeart,i*250);
     })();
-
-    // ── save card PNG ──
-    document.getElementById('downloadBtn').addEventListener('click',async function(){
-      const el=document.querySelector('.hero');
-      const rect=el.getBoundingClientRect();
-      const scale=2;
-      const c=document.createElement('canvas');
-      c.width=rect.width*scale;c.height=rect.height*scale;
-      const ctx=c.getContext('2d');
-      const data=`<svg xmlns='http://www.w3.org/2000/svg' width='${rect.width}' height='${rect.height}'><foreignObject width='100%' height='100%'>${new XMLSerializer().serializeToString(el.cloneNode(true)).replace(/#/g,'%23')}</foreignObject></svg>`;
-      const url=URL.createObjectURL(new Blob([data],{type:'image/svg+xml'}));
-      const img=new Image();
-      img.onload=()=>{ctx.drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);
-        const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='birthday-card.png';a.click();};
-      img.src=url;
-    });
 
     // ── album ──
     (function(){
@@ -455,6 +523,21 @@
         .then(r=>{if(!r.ok) throw 0;return r.json();})
         .then(applyList)
         .catch(()=>applyList(EMBEDDED));
+
+      // badge → scroll to photo section
+      document.querySelectorAll('a.badge[href^="#post-"]').forEach(link=>{
+        link.addEventListener('click',e=>{
+          e.preventDefault();
+          const id=link.getAttribute('href').slice(1);
+          const el=document.getElementById(id);
+          if(el){
+            el.scrollIntoView({behavior:'smooth',block:'start'});
+            el.style.transition='box-shadow .4s';
+            el.style.boxShadow='0 0 0 3px rgba(232,77,138,0.35)';
+            setTimeout(()=>{el.style.boxShadow='';},1200);
+          }
+        });
+      });
     })();
   </script>
 </body>
