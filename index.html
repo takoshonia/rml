@@ -20,6 +20,7 @@
       align-items:flex-start;
       justify-content:center;
       padding:0; /* remove outer margins per request */
+      overflow-x: hidden; /* prevent wide post rows from shifting header left */
       min-height:100vh;
     }
 
@@ -42,6 +43,7 @@
       flex-direction:column;
       text-align:center;
       position:relative;
+      z-index:3;
     }
     @media (max-width:720px){ .card{flex-direction:column;text-align:center;padding:28px} }
 
