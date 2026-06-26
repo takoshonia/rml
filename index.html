@@ -17,26 +17,26 @@
     body{
       background:linear-gradient(135deg,var(--pink-1) 0%, #ffe3f2 40%, #fff 100%);
       display:flex;
-      align-items:flex-start; /* keep header visible instead of vertically centering (prevents cropping) */
+      align-items:flex-start;
       justify-content:center;
-      padding:32px;
+      padding:0; /* remove outer margins per request */
       min-height:100vh;
     }
 
-    .stage{position:relative;width:100%;max-width:1200px;margin:auto;display:flex;gap:28px;align-items:flex-start;}
+    .stage{position:relative;width:100%;max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:12px;align-items:center;padding-top:24px;}
     .hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
     .card{
-      background:var(--card);border-radius:20px;padding:24px;box-shadow:0 8px 30px rgba(203,56,133,0.12);
-      display:flex;gap:18px;align-items:flex-start;flex:0 0 320px;
+      background:var(--card);border-radius:20px;padding:18px 28px;box-shadow:0 8px 30px rgba(203,56,133,0.12);
+      display:flex;gap:18px;align-items:center;width:100%;max-width:1100px;
       transform:translateY(0);transition:transform .35s ease;
-      position:sticky;top:20px;height:max-content;
+      margin:0 auto;
     }
     @media (max-width:720px){ .card{flex-direction:column;text-align:center;padding:28px} }
 
     .photo{
-      width:180px;height:180px;border-radius:50%;background:linear-gradient(180deg,var(--pink-2),#ffd7ea);
-      box-shadow:0 8px 20px rgba(255,95,162,0.18);flex:0 0 180px;overflow:hidden;border:6px solid rgba(255,255,255,0.6);
-      display:flex;align-items:center;justify-content:center;
+      width:140px;height:140px;border-radius:50%;background:linear-gradient(180deg,var(--pink-2),#ffd7ea);
+      box-shadow:0 8px 20px rgba(255,95,162,0.18);overflow:hidden;border:6px solid rgba(255,255,255,0.6);
+      display:flex;align-items:center;justify-content:center;flex:0 0 auto;
     }
     .photo img{width:100%;height:100%;object-fit:cover;display:block}
 
@@ -108,17 +108,19 @@
   <!-- Album UI -->
   <style>
     /* Album styles */
-  .album-wrap{flex:1;max-width:1000px;margin:8px 0 60px 0;padding:20px;background:linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.5));border-radius:16px;box-shadow:0 6px 18px rgba(150,50,90,0.06)}
+  .album-wrap{flex:1;max-width:1200px;margin:16px auto;padding:24px 12px;background:linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.5));border-radius:16px;box-shadow:0 6px 18px rgba(150,50,90,0.06)}
     .album-header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
     .uploader{display:flex;gap:8px;align-items:center}
     .dropzone{padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,#fff0f6,#fff);border:2px dashed rgba(255,95,162,0.14);cursor:pointer;color:#9b2e52}
     .posts{display:flex;flex-direction:column;gap:22px;margin-top:12px}
     .post{background:rgba(255,245,251,0.8);border-radius:12px;padding:12px}
     .post-title{font-weight:700;color:#7a2344;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .post-row{display:flex;gap:12px;overflow-x:auto;padding:8px 4px;scroll-behavior:smooth;align-items:flex-start}
+    /* Each post is centered and constrained so rows of many photos don't stretch the full page */
+    .post{width:100%;max-width:920px;margin:20px auto;padding:12px;border-radius:12px}
+    .post-row{display:flex;gap:18px;justify-content:flex-start;padding:12px 6px;align-items:flex-start;overflow-x:auto;white-space:nowrap;scroll-behavior:smooth}
     .photo-card{flex:0 0 auto;background:var(--pink-1);padding:8px;border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(200,60,120,0.06);transition:transform .18s ease,box-shadow .18s ease}
     .photo-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(200,60,120,0.12)}
-    .photo-card img{display:block;max-height:520px;max-width:520px;height:auto;width:auto;object-fit:contain;border-radius:6px}
+    .photo-card img{display:block;max-height:520px;max-width:420px;height:auto;width:auto;object-fit:contain;border-radius:6px}
     .scroll-btn{background:transparent;border:0;font-size:20px;color:#c04a76;cursor:pointer;padding:6px 10px;border-radius:8px}
     .caption{margin-top:8px;font-size:.95rem;color:#6b4152}
     .lightbox{position:fixed;inset:0;background:rgba(15,6,10,0.75);display:flex;align-items:center;justify-content:center;z-index:9999;padding:24px;display:none}
