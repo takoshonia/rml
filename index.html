@@ -266,8 +266,8 @@
         <img src="profile image.jpg" alt="Mariam">
       </div>
       <h1 id="title">Happy 20th Birthday, Mariam!</h1>
-      <p class="tagline">Twenty years of grace, fire, and a heart that makes every room feel warmer.</p>
-      <p class="message">Late-night tea talks that felt like home. 7 AM walks when the campus was still asleep. Morning gym, shared laughs, hard days, and opinions we argue about with love. You are gorgeous, confident, and unapologetically yourself — and we are so lucky we got to live all of it beside you.</p>
+      <p class="tagline">Twenty years of elegance, fire, and a heart that makes every room feel warmer.</p>
+      <p class="message">Late-night tea talks that felt like home. 7 AM walks when the campus was still asleep. Shared laughs, casual chats, walks, overstimulation, and plenty of wyalkamkaboba — physically hard days like Legion, nervous days like exams — we went through it all together. You are gorgeous, confident, and unapologetically yourself — and we are so lucky we got to live all of it beside you.</p>
       <div class="badges">
         <a class="badge" href="#post-night">Laughter & late-night talks</a>
         <a class="badge" href="#post-morning">7 AM walks</a>
@@ -285,7 +285,7 @@
       <div class="posts" id="postsContainer" aria-live="polite">
 
         <section id="post-qeipi" class="post">
-          <p class="post-note">So many nights with drinks in our rooms — and your aunt's liquor? Absolutely fantastic.</p>
+          <p class="post-note">So many nights with drinks in our rooms — and your aunt's and your mother's liquor? Absolutely fantastic.</p>
         </section>
 
         <section id="post-night" class="post">
@@ -419,6 +419,10 @@
     // ── album ──
     (function(){
       const ORDER=["top","us","tamchos","qeipi","night","morning","legioni","hellowin","giorgi"];
+      // manual photo order when filenames don't sort naturally
+      const CUSTOM_FILE_ORDER={
+        tamchos:["tamchos 4.jpg","tamchos1 (1).JPG","tamchos1 (3).JPG","tamchos1 (2).JPG"]
+      };
       const postsContainer=document.getElementById('postsContainer');
       const lightbox=document.getElementById('lightbox');
       const lightboxImg=document.getElementById('lightboxImg');
@@ -445,7 +449,12 @@
           if(!placed) others.push(i);
         });
         for(const k of ORDER){
-          groups[k].sort((a,b)=>parseIndex(a.name.replace(/\.[^.]+$/,''),k)-parseIndex(b.name.replace(/\.[^.]+$/,''),k));
+          if(CUSTOM_FILE_ORDER[k]){
+            const rank=Object.fromEntries(CUSTOM_FILE_ORDER[k].map((f,i)=>[f.toLowerCase(),i]));
+            groups[k].sort((a,b)=>(rank[a.name.toLowerCase()]??99)-(rank[b.name.toLowerCase()]??99));
+          } else {
+            groups[k].sort((a,b)=>parseIndex(a.name.replace(/\.[^.]+$/,''),k)-parseIndex(b.name.replace(/\.[^.]+$/,''),k));
+          }
         }
         return {groups,others};
       }
